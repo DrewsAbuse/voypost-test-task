@@ -4,26 +4,19 @@ const typeDefs = gql`
     fromPlaceName: String! # from place name e.g. Kyiv | https://docs.mapbox.com/
     toPlaceName: String! # to place name e.g. Berlin | https://docs.mapbox.com/
   }
-  input CreateTripInputTest {
-    fromPlaceName: String! # from place name e.g. Kyiv | https://docs.mapbox.com/
-    toPlaceName: String! # to place name e.g. Berlin | https://docs.mapbox.com/
-  }
+
   type Query {
-    books: [Book]
     trips(offset: Int, limit: Int): [Trip!]!
-  }
-  type Book {
-    title: String
-    author: String
   }
 
   type Mutation {
     createTrip(input: CreateTripInput!): Trip
-    createTripTest(input: CreateTripInputTest!): TripTest
   }
 
   type TripTest {
     id: ID! # format "urn::trip:<mongo object id>"
+    fromPlace: Location!
+    toPlace: Location!
   }
   type Trip {
     id: ID! # format "urn::trip:<mongo object id>"

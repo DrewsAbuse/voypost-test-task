@@ -1,8 +1,8 @@
 const { Schema, model } = require('mongoose')
 
 const Trip = new Schema({
-  fromName: {}, // unique: true
-  toName: {}, // unique: true
+  fromPlace: {}, // unique: true
+  toPlace: {}, // unique: true
 })
 
 module.exports = model('Trip', Trip)
