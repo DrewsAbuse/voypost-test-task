@@ -1,5 +1,4 @@
 const express = require('express')
-const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const { secret } = require('./secretLinks')
 const { ApolloServer } = require('apollo-server-express')

@@ -1,5 +1,4 @@
 const Trip = require('../models/modelTrip')
-
 const ResponseTrip = require('./Utility/ResponseTrip')
 const mapBoxFetch = require('./Utility/mapBoxFetch')
 const resolvers = {
@@ -15,11 +14,10 @@ const resolvers = {
   Mutation: {
     createTrip: async (parent, { input }) => {
       const { fromPlaceName, toPlaceName } = input
-      console.log(fromPlaceName, toPlaceName)
+
       const mapBox = await mapBoxFetch(fromPlaceName, toPlaceName)
       const trip = new Trip({ fromPlace: { id: mapBox.from, name: fromPlaceName }, toPlace: { id: mapBox.to, name: toPlaceName } })
       await trip.save()
-      console.log(ResponseTrip(trip))
 
       return ResponseTrip(trip)
     },

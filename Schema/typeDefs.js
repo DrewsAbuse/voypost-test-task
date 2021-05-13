@@ -13,11 +13,6 @@ const typeDefs = gql`
     createTrip(input: CreateTripInput!): Trip
   }
 
-  type TripTest {
-    id: ID! # format "urn::trip:<mongo object id>"
-    fromPlace: Location!
-    toPlace: Location!
-  }
   type Trip {
     id: ID! # format "urn::trip:<mongo object id>"
     fromPlace: Location!
