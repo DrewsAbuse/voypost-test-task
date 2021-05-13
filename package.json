@@ -1,0 +1,17 @@
+{
+  "name": "voypost-test-task",
+  "version": "1.0.0",
+  "description": "voypost test task",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "apollo",
+    "server",
+    "MongoDB",
+    "mapbox"
+  ],
+  "author": "Andrii Bakanov",
+  "license": "ISC"
+}
