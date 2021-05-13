@@ -2,13 +2,22 @@ const Trip = require('../models/modelTrip')
 const access_token = 'pk.eyJ1IjoiZHJld3MxMzIiLCJhIjoiY2tvbXh1ejN5MGhxdzMxbDYycXR6Z3BreCJ9.ksNqvNtElrJCgAyki1-CsA'
 const mapBoxUrl = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'
 const axios = require('axios')
-const mongoose = require('mongoose')
+const ResponseTrip = (trip) => {
+  return {
+    id: `urn::trip:${trip._id}`,
+    fromPlace: { id: `urn::mapbox:${trip.fromPlace.id}`, name: trip.fromPlace.name },
+    toPlace: { id: `urn::mapbox:${trip.toPlace.id}`, name: trip.toPlace.name },
+  }
+}
 
 const resolvers = {
   Query: {
     trips: async (parent, { offset, limit }) => {
       const AllTrips = await Trip.find()
-      return AllTrips.slice(offset, limit)
+      const responseAllTrips = AllTrips.slice(offset, limit).map((element) => {
+        return ResponseTrip(element)
+      })
+      return responseAllTrips
     },
   },
   Mutation: {
@@ -18,12 +27,9 @@ const resolvers = {
       const mapBox = await mapBoxFetchInfo(fromPlaceName, toPlaceName)
       const trip = new Trip({ fromPlace: { id: mapBox.from, name: fromPlaceName }, toPlace: { id: mapBox.to, name: toPlaceName } })
       await trip.save()
-      const responseTrip = {
-        id: `urn::trip:${trip._id}`,
-        fromPlace: { id: `urn::mapbox:${trip.fromPlace.id}`, name: trip.fromPlace.name },
-        toPlace: { id: `urn::mapbox:${trip.toPlace.id}`, name: trip.toPlace.name },
-      }
-      return responseTrip
+      console.log(ResponseTrip(trip))
+
+      return ResponseTrip(trip)
     },
   },
 }
